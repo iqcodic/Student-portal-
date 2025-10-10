@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Welcome, Admin</h1>
+    <button onclick="logout()">Logout</button>
+
+    <div class="form-section">
+        <h2>Add New Student</h2>
+        <input type="text" id="rollNumber" placeholder="Roll Number (Unique)">
+        <input type="text" id="studentName" placeholder="Student Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="number" id="age" placeholder="Age">
+        <input type="text" id="address" placeholder="Address">
+        <label>Student Picture: <input type="file" id="studentPictureFile" accept="image/*"></label>
+        
+        <button onclick="addStudent()">Save Student</button>
+    </div>
+    
+    <div class="data-section">
+        <h2>Current Students</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll No.</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="studentsTableBody">
+                </tbody>
+        </table>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Call the function to load students when the page loads
+        document.addEventListener('DOMContentLoaded', loadStudents); 
+    </script>
+</body>
+</html>
