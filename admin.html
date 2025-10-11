@@ -1,49 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <title>Admin — Student Portal</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Supabase UMD -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!-- html2canvas + jsPDF (for preview) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-    <h1>Welcome, Admin</h1>
-    <button onclick="logout()">Logout</button>
+  <div class="wrap">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <h1>Admin Dashboard</h1>
+          <div class="small muted">Add · Edit · Delete · Export PDF</div>
+        </div>
+      </div>
+      <nav>
+        <a class="nav-link" href="index.html">Search</a>
+      </nav>
+    </header>
 
-    <div class="form-section">
-        <h2>Add New Student</h2>
-        <input type="text" id="rollNumber" placeholder="Roll Number (Unique)">
-        <input type="text" id="studentName" placeholder="Student Name">
-        <input type="email" id="email" placeholder="Email">
-        <input type="number" id="age" placeholder="Age">
-        <input type="text" id="address" placeholder="Address">
-        <label>Student Picture: <input type="file" id="studentPictureFile" accept="image/*"></label>
-        
-        <button onclick="addStudent()">Save Student</button>
-    </div>
-    
-    <div class="data-section">
-        <h2>Current Students</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Roll No.</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="studentsTableBody">
-                </tbody>
-        </table>
-    </div>
+    <main class="container two-col">
+      <aside class="card admin-card">
+        <h3>Sign in</h3>
+        <input id="adminEmail" type="email" placeholder="email" />
+        <input id="adminPassword" type="password" placeholder="password" />
+        <div style="display:flex;gap:8px">
+          <button id="btnSignIn" class="btn-primary">Sign in</button>
+          <button id="btnSignOut" class="btn-ghost hidden">Sign out</button>
+        </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
-    <script src="script.js"></script>
-    <script>
-        // Call the function to load students when the page loads
-        document.addEventListener('DOMContentLoaded', loadStudents); 
-    </script>
+        <div id="adminInfo" class="small muted" style="margin-top:8px"></div>
+
+        <hr />
+
+        <div id="adminArea" class="hidden">
+          <h4>Add / Edit Student</h4>
+          <form id="studentForm">
+            <div class="form-grid">
+              <input id="f_name" type="text" placeholder="Full name" required />
+              <input id="f_roll" type="text" placeholder="Roll number" required />
+            </div>
+            <div class="form-grid" style="margin-top:8px">
+              <input id="f_class" type="text" placeholder="Class" />
+              <input id="f_dob" type="date" />
+            </div>
+            <div class="form-grid" style="margin-top:8px">
+              <input id="f_admission" type="date" />
+              <input id="f_contact" type="text" placeholder="Contact" />
+            </div>
+            <textarea id="f_address" placeholder="Address" rows="2"></textarea>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="f_photo" type="file" accept="image/*" />
+              <button type="button" id="btnSave" class="btn-primary">Save</button>
+              <button type="button" id="btnClear" class="btn-ghost">Clear</button>
+            </div>
+          </form>
+
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button id="btnRefresh" class="btn-ghost">Refresh list</button>
+            <button id="btnExportCsv" class="btn-ghost">Export CSV</button>
+          </div>
+
+          <div id="adminList" class="results" style="margin-top:12px"></div>
+        </div>
+      </aside>
+
+      <section class="card wide-card">
+        <h3>Admin Tools</h3>
+        <p class="small muted">Use the form to add students. Click Preview to see printable profile with photo and signature (if uploaded).</p>
+
+        <div style="margin-top:12px">
+          <div id="adminMessages" class="small muted"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">© Student Portal — Admin</footer>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // page-specific init
+    window.PAGE = 'ADMIN';
+    window.initAdminPage();
+  </script>
 </body>
 </html>
