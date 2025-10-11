@@ -1,26 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - Student Portal</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <title>Student Search — Student Portal</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Supabase UMD -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!-- html2canvas + jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Admin Login</h1>
-        <input type="email" id="adminEmail" placeholder="Email">
-        <input type="password" id="adminPassword" placeholder="Password">
-        <button onclick="adminLogin()">Login</button>
-        <p>--- OR ---</p>
-        <a href="student.html">Go to Student Panel</a>
-    </div>
+  <div class="wrap">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <h1>Student Database</h1>
+          <div class="small muted">Search records · Print-ready profiles</div>
+        </div>
+      </div>
+      <nav>
+        <a class="nav-link" href="admin.html">Admin</a>
+      </nav>
+    </header>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <main class="container">
+      <section class="card">
+        <h2 class="section-title">Find Student</h2>
+        <p class="small muted">Search by roll number (exact) or part of name (case-insensitive).</p>
 
-    <script src="script.js"></script>
+        <div class="search-row">
+          <input id="searchQuery" type="text" placeholder="Enter roll number or name" />
+          <button id="searchBtn" class="btn-primary">Search</button>
+        </div>
+
+        <div id="searchInfo" class="small muted" style="margin-top:8px"></div>
+        <div id="searchResults" class="results"></div>
+      </section>
+    </main>
+
+    <footer class="footer">© Student Portal — simple, responsive, printable</footer>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // page-specific init
+    window.PAGE = 'SEARCH';
+    window.initSearchPage();
+  </script>
 </body>
 </html>
