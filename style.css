@@ -1,0 +1,54 @@
+/* style.css - shared layout and components */
+:root{
+  --bg:#f6f8fb; --card:#fff; --muted:#6b7280; --primary:#0b5ed7; --accent:#06b6d4;
+  --radius:12px; --gap:14px; --max-w:1100px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:Inter, Arial, Helvetica, sans-serif; background:var(--bg); color:#071133;
+  display:flex; justify-content:center; padding:20px;
+}
+.wrap{width:100%; max-width:var(--max-w)}
+.header, header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+h1{margin:0;font-size:18px}
+.small{font-size:13px}
+.muted{color:var(--muted)}
+
+nav .nav-link{color:var(--primary);text-decoration:none;padding:6px 10px;border-radius:8px}
+.container{display:block}
+.two-col{display:grid;grid-template-columns:360px 1fr;gap:16px}
+@media(max-width:920px){ .two-col{grid-template-columns:1fr} }
+
+.card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 10px 30px rgba(2,6,23,0.06)}
+.admin-card{position:sticky;top:18px}
+.wide-card{min-height:120px}
+
+.search-row{display:flex;gap:10px;margin-top:10px}
+input[type="text"], input[type="email"], input[type="date"], textarea, select{
+  padding:10px;border-radius:10px;border:1px solid #eef6ff;outline:none;font-size:14px
+}
+textarea{resize:vertical}
+button{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-ghost{background:transparent;border:1px solid rgba(7,17,51,0.06);color:#071133}
+.hidden{display:none}
+
+.results{margin-top:12px;display:grid;gap:12px}
+.student-card, .student-card-small{
+  display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;border:1px solid #f2f6ff;background:#fbfdff;
+  box-shadow:0 4px 12px rgba(2,6,23,0.02)
+}
+.student-card img, .student-card-small img{width:120px;height:120px;border-radius:8px;object-fit:cover;border:1px solid #eef6ff;background:#f8fafc}
+.student-card-small img{width:72px;height:72px}
+.info h2{margin:0;font-size:18px}
+.info table{width:100%;border-collapse:collapse;margin-top:8px}
+.info td{padding:6px 4px;border-bottom:1px dashed #eef6ff;font-size:14px;color:#182033}
+.info td.label{color:var(--muted);width:140px;font-weight:700}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:520px){ .form-grid{grid-template-columns:1fr} }
+
+.footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
